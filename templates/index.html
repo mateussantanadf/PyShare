@@ -1,0 +1,24 @@
+<!-- templates/index.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registro de Atividade</title>
+</head>
+<body>
+    <h1>Registrar Atividade</h1>
+
+    {% if mensagem %}
+        <p style="color:green;">{{ mensagem }}</p>
+    {% endif %}
+
+    <form method="POST">
+        <label>Nome:</label><br>
+        <input type="text" name="nome" required><br><br>
+
+        <label>Atividade:</label><br>
+        <input type="text" name="atividade" required><br><br>
+
+        <button type="submit">Enviar</button>
+    </form>
+</body>
+</html>

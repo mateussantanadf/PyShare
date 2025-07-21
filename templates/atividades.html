@@ -1,0 +1,29 @@
+<!-- templates/atividades.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Atividades Registradas</title>
+</head>
+<body>
+    <h1>Lista de Atividades</h1>
+
+    <table border="1" cellpadding="8">
+        <tr>
+            <th>Nome</th>
+            <th>Atividade</th>
+            <th>Data e Hora</th>
+        </tr>
+        {% for nome, atividade, data in atividades %}
+        <tr>
+            <td>{{ nome }}</td>
+            <td>{{ atividade }}</td>
+            <td>{{ data }}</td>
+        </tr>
+        {% endfor %}
+    </table>
+
+    <br>
+    <a href="/">← Voltar ao formulário</a>
+</body>
+</html>
