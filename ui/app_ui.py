@@ -1,38 +1,45 @@
 import tkinter as tk
-from tkinter import messagebox
-from database.db_config import conectar
+from database.db_config import buscar_atividades, conectar
 
 def salvar_atividades(entry_nome, entry_atividade):
     nome = entry_nome.get()
     atividade = entry_atividade.get()
 
-    if not nome or not atividade:
-        messagebox.showwarning("Atenção", "Preencha todos os campos.")
-        return
+    if nome and atividade:
+        con = conectar()
+        cur = con.cursor()
+        cur.execute("INSERT INTO atividades (nome, atividade) VALUES (?, ?)", (nome, atividade))
+        con.commit()
+        con.close()
 
-    con = conectar()
-    cur = con.cursor()
-    cur.execute("INSERT INTO atividades (nome, atividade) VALUES (?, ?)", (nome, atividade))
-    con.commit()
-    con.close()
+        entry_nome.delete(0, tk.END)
+        entry_atividade.delete(0, tk.END)
 
-    entry_nome.delete(0, tk.END)
-    entry_atividade.delete(0, tk.END)
-    messagebox.showinfo("Sucesso", "Atividade registrada com sucesso.")
+def exibir_atividades(text_widget):
+    text_widget.delete("1.0", tk.END)  # Limpa o conteúdo anterior
+    atividades = buscar_atividades()
+    for id, nome, atividade in atividades:
+        text_widget.insert(tk.END, f"{id} - {nome}: {atividade}\n")
 
 def iniciar_ui():
     app = tk.Tk()
     app.title("Cadastro de Atividades")
 
-    tk.Label(app, text="Nome:").grid(row=0, column=0, padx=10, pady=5)
-    entry_nome = tk.Entry(app, width=30)
-    entry_nome.grid(row=0, column=1, padx=10, pady=5)
+    tk.Label(app, text="Nome:").pack()
+    entry_nome = tk.Entry(app)
+    entry_nome.pack()
 
-    tk.Label(app, text="Atividade:").grid(row=1, column=0, padx=10, pady=5)
-    entry_atividade = tk.Entry(app, width=30)
-    entry_atividade.grid(row=1, column=1, padx=10, pady=5)
+    tk.Label(app, text="Atividade:").pack()
+    entry_atividade = tk.Entry(app)
+    entry_atividade.pack()
 
     btn = tk.Button(app, text="Salvar", command=lambda: salvar_atividades(entry_nome, entry_atividade))
-    btn.grid(row=2, column=0, columnspan=2, pady=10)
-    
+    btn.pack()
+
+    text_resultado = tk.Text(app, height=10, width=50)
+    text_resultado.pack()
+
+    btn_exibir = tk.Button(app, text="Exibir Atividades", command=lambda: exibir_atividades(text_resultado))
+    btn_exibir.pack(pady=5)
+
     app.mainloop()
