@@ -14,9 +14,9 @@ Cria atividades via Web subindo serviço que pode ser acesso:
 
 <details open>
 <summary> **Tecnologias Principais** </summary>
-  Python:
-    Flask;
-    DB_Write;
-  SQLite;
-  Ngrok.
+  Python <br/>
+    Flask <br/>
+    DB_Write <br/>
+  SQLite <br/>
+  Ngrok <br/>
 </details>
