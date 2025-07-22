@@ -1,20 +1,21 @@
 import sqlite3
 import os
+from queue import Queue
+from threading import Thread
 
-# Caminho da pasta atual
 BASE_DIR = os.path.dirname(os.path.abspath(__file__))
-
-# Caminho absoluto do banco
 DB_PATH = os.path.join(BASE_DIR, "atividades.db")
 
+# Fila de requisições de gravação
+gravar_fila = Queue()
+
 def conectar():
-    inicializar_banco()
-    return sqlite3.connect(DB_PATH)
+    return sqlite3.connect(DB_PATH, check_same_thread=False)
 
 def inicializar_banco():
     if not os.path.exists(DB_PATH):
         print("Criando banco de dados SQLite...")
-        con = sqlite3.connect(DB_PATH)
+        con = conectar()
         cur = con.cursor()
         cur.execute('''
             CREATE TABLE IF NOT EXISTS atividades (
@@ -25,6 +26,26 @@ def inicializar_banco():
         ''')
         con.commit()
         con.close()
+
+def gravar_worker():
+    while True:
+        nome, atividade = gravar_fila.get()
+        try:
+            con = conectar()
+            cur = con.cursor()
+            cur.execute("INSERT INTO atividades (nome, atividade) VALUES (?, ?)", (nome, atividade))
+            con.commit()
+            con.close()
+        except Exception as e:
+            print("Erro ao gravar:", e)
+        finally:
+            gravar_fila.task_done()
+
+# Inicia a thread da fila de gravação
+Thread(target=gravar_worker, daemon=True).start()
+
+def adicionar_atividade(nome, atividade):
+    gravar_fila.put((nome, atividade))
 
 def buscar_atividades():
     con = conectar()
