@@ -1,0 +1,17 @@
+
+WS002743	Mon Jul 21 17:24:15 2025
+	XNET error: XNET server initialization failed. Probably another instance of server is already running.
+	operating system directive CreateMutex failed
+	Não é possível criar um arquivo já existente. 
+
+
+WS002743	Mon Jul 21 17:25:05 2025
+	INET/inet_error: bind errno = 10048
+
+
+WS002743	Mon Jul 21 17:25:05 2025
+	INET_connect
+	Unable to complete network request to host "ws002743".
+	Error while listening for an incoming connection.
+	Normalmente é permitida apenas uma utilização de cada endereço de soquete (protocolo/endereço de rede/porta). 
+
