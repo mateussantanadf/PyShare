@@ -8,7 +8,7 @@ Cria atividades via Web subindo serviço que pode ser acesso:
 * Link gerado pelo ngrok
 
 
-** Pode ser acessado pelo IP por qualquer PC conectado na mesma sub-rede local **
+__ Pode ser acessado pelo IP por qualquer PC conectado na mesma sub-rede local __ <br/>
 ** Outra opção é pelo link do NGROK, acesso até fora da rede local **
 
 
