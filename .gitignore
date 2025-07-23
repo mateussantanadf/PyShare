@@ -1,0 +1,25 @@
+# Ignorar pastas de build do PyInstaller
+/dist/
+/build/
+*.spec
+
+# Bytecode do Python
+__pycache__/
+/*.py[cod]
+*/__pycache__/
+
+# Banco SQLite de produção (se quiser versionar só a estrutura, não os dados)
+# Remova essa linha se quiser versionar o banco
+/database/atividades.db
+
+# Logs
+*.log
+
+# Arquivos temporários
+*.tmp
+*.swp
+*.bak
+
+# Sistema operacional (Windows)
+Thumbs.db
+desktop.ini
