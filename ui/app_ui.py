@@ -34,7 +34,7 @@ def iniciar_ui():
     entry_atividade.pack()
 
     btn = tk.Button(app, text="Salvar", command=lambda: salvar_atividades(entry_nome, entry_atividade))
-    btn.pack()
+    btn.pack(pady=5)
 
     text_resultado = tk.Text(app, height=10, width=50)
     text_resultado.pack()
